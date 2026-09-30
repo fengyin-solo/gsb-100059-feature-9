@@ -28,6 +28,34 @@ class EntryPayload(BaseModel):
     remark: str | None = None
 
 
+class VerifyPayload(BaseModel):
+    """坐标核验结论。"""
+
+    verdict: str
+    note: str | None = None
+
+
+class OfflineSyncPayload(BaseModel):
+    """离线采集合并：一组按点号幂等合并的控制点。"""
+
+    points: list[dict[str, Any]] = Field(default_factory=list)
+    batch: str | None = None
+
+
+class BatchPayload(BaseModel):
+    """签发/重新签发时携带的签发批次号。"""
+
+    batch: str | None = None
+    values: dict[str, Any] = Field(default_factory=dict)
+
+
+class BackfillTypePayload(BaseModel):
+    """历史点回填点类型并迁移责任组。"""
+
+    point_type: str
+    group: str | None = None
+
+
 
 class BoreholeEntry(BaseModel):
     """钻孔明细结构。"""
